@@ -8,7 +8,7 @@ import javax.persistence.Id;
 public class Offer {
     @Id
     @GeneratedValue
-    private Long id;
+    private int id;
     private String description;
     private String currency;
     private int price;
@@ -17,11 +17,20 @@ public class Offer {
         super();
     }
 
-    public Offer(String description, String currency, int price){
+    public Offer(int id, String description, String currency, int price){
         super();
+        this.id = id;
         this.description = description;
         this.currency = currency;
         this.price = price;
+    }
+
+    public long getId(){
+        return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 
     public String getDescription(){

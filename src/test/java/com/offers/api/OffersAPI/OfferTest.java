@@ -7,14 +7,14 @@ public class OfferTest {
 
     @Test
     public void GetOfferDescription(){
-    Offer offer = new Offer("Test Description", "GBP", 100);
+    Offer offer = new Offer(1, "Test Description", "GBP", 100);
 
     Assertions.assertThat("Test Description").isEqualTo(offer.getDescription());
     }
 
     @Test
     public void GetOfferCurrency(){
-        Offer offer = new Offer("Test Description", "GBP", 100);
+        Offer offer = new Offer(1, "Test Description", "GBP", 100);
 
         Assertions.assertThat("GBP").isEqualTo(offer.getCurrency());
 
@@ -22,7 +22,7 @@ public class OfferTest {
 
     @Test
     public void GetOfferPrice() {
-        Offer offer = new Offer("Test Description", "GBP", 100);
+        Offer offer = new Offer(1, "Test Description", "GBP", 100);
 
         Assertions.assertThat(100).isEqualTo(offer.getPrice());
     }
