@@ -22,7 +22,7 @@ public class OffersApiApplicationTests {
     private OfferRepository offerRepository;
 
     @Test
-    public void getAllOffersWhenEmpty() throws ClientProtocolException, IOException {
+    public void getAllOffers() throws ClientProtocolException, IOException {
 
         HttpUriRequest request = new HttpGet("http://localhost:8080/offers");
 

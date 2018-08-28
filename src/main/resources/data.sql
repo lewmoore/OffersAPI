@@ -1,2 +1,2 @@
 insert into offer
-values(1, 'description', 'gpb', 500);
+values(1, 'gbp', 'description', 500);
