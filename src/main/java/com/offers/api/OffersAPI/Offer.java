@@ -25,4 +25,13 @@ public class Offer {
         this.description = desc;
     }
 
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getCurrency(){
+        return currency;
+    }
+
+
 }
