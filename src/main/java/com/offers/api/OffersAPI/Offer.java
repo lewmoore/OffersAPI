@@ -13,8 +13,15 @@ public class Offer {
     private String currency;
     private int price;
 
+    public Offer(){
+        super();
+    }
+
     public Offer(String description, String currency, int price){
+        super();
         this.description = description;
+        this.currency = currency;
+        this.price = price;
     }
 
     public String getDescription(){
