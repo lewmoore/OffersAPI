@@ -19,4 +19,11 @@ public class OfferTest {
         Assertions.assertThat("GBP").isEqualTo(offer.getCurrency());
 
     }
+
+    @Test
+    public void GetOfferPrice() {
+        Offer offer = new Offer("Test Description", "GBP", 100);
+
+        Assertions.assertThat(100).isEqualTo(offer.getPrice());
+    }
 }

@@ -33,5 +33,13 @@ public class Offer {
         return currency;
     }
 
+    public int getPrice(){
+        return price;
+    }
+
+    public void setPrice(){
+        this.price = price;
+    }
+
 
 }
