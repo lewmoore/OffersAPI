@@ -32,10 +32,9 @@ public class OfferController {
     }
 
     @GetMapping("/offers/{id}")
-    public Offer retrieveStudent(@PathVariable Long id) {
+    public Offer retrieveOffer(@PathVariable Long id) {
         Optional<Offer> offer = offerRepository.findById(id);
 
         return offer.get();
     }
-
 }
