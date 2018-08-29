@@ -13,7 +13,10 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.assertj.core.api.Assertions;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -65,11 +68,13 @@ public class OffersApiApplicationTests {
     }
 
     @Test // Only works when existing entry in DB.. Need to address this - test order is temporary fix
-    public void getSingleOffer() throws ClientProtocolException, IOException {
+    public void getSingleOffer() throws ClientProtocolException, IOException, JSONException {
         HttpUriRequest request = new HttpGet("http://localhost:8080/offers/1");
-
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
-        Assertions.assertThat(httpResponse.getStatusLine().getStatusCode()).isEqualTo(200);
+        String json = EntityUtils.toString(httpResponse.getEntity());
+        JSONObject object = new JSONObject(json);
 
+        Assertions.assertThat(httpResponse.getStatusLine().getStatusCode()).isEqualTo(200);
+        Assertions.assertThat(object.get("id")).isEqualTo(1);
     }
 }
