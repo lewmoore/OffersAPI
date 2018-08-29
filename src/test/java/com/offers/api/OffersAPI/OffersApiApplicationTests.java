@@ -39,7 +39,7 @@ public class OffersApiApplicationTests {
 
     }
 
-    @Test
+    @Test // Only works when existing entry in DB.. Need to address this
     public void getSingleOffer() throws ClientProtocolException, IOException {
         HttpUriRequest request = new HttpGet("http://localhost:8080/offers/1");
 
