@@ -17,6 +17,7 @@ import org.apache.http.util.EntityUtils;
 import org.assertj.core.api.Assertions;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -32,14 +33,34 @@ public class OffersApiApplicationTests {
     @MockBean
     private OfferRepository offerRepository;
 
+    @BeforeClass
+    public static void init() throws ClientProtocolException, IOException {
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost("http://localhost:8080/offers");
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json");
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode node = mapper.createObjectNode();
+        node.put("description", "Before Test Setup");
+        node.put("currency", "GBP");
+        node.put("price", "5000");
+        String JSON_STRING = node.toString();
+        StringEntity requestEntity = new StringEntity(
+                JSON_STRING,
+                ContentType.APPLICATION_JSON);
+        httpPost.setEntity(requestEntity);
+
+        CloseableHttpResponse response = client.execute(httpPost);
+
+    }
+
     @Test
     public void getAllOffers() throws ClientProtocolException, IOException {
-
         HttpUriRequest request = new HttpGet("http://localhost:8080/offers");
-
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
-        Assertions.assertThat(httpResponse.getStatusLine().getStatusCode()).isEqualTo(200);
 
+        Assertions.assertThat(httpResponse.getStatusLine().getStatusCode()).isEqualTo(200);
     }
 
     @Test
@@ -55,13 +76,10 @@ public class OffersApiApplicationTests {
         node.put("currency", "GBP");
         node.put("price", "500");
         String JSON_STRING = node.toString();
-
         StringEntity requestEntity = new StringEntity(
                 JSON_STRING,
                 ContentType.APPLICATION_JSON);
-
         httpPost.setEntity(requestEntity);
-
         CloseableHttpResponse response = client.execute(httpPost);
 
         Assertions.assertThat(response.getStatusLine().getStatusCode()).isEqualTo(201);
