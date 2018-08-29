@@ -40,7 +40,7 @@ public class OffersApiApplicationTests {
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode node = mapper.createObjectNode();
-        node.put("description", "Before Test Setup");
+        node.put("description", "First Test Setup");
         node.put("currency", "GBP");
         node.put("price", "5000");
         String JSON_STRING = node.toString();
@@ -50,6 +50,24 @@ public class OffersApiApplicationTests {
         httpPost.setEntity(requestEntity);
 
         CloseableHttpResponse response = client.execute(httpPost);
+
+        CloseableHttpClient client2 = HttpClients.createDefault();
+        HttpPost httpPost2 = new HttpPost("http://localhost:8080/offers");
+        httpPost2.setHeader("Accept", "application/json");
+        httpPost2.setHeader("Content-type", "application/json");
+
+        ObjectMapper mapper2 = new ObjectMapper();
+        ObjectNode node2 = mapper2.createObjectNode();
+        node2.put("description", "Second Test Setup");
+        node2.put("currency", "GBP");
+        node2.put("price", "5000");
+        String JSON_STRING2 = node.toString();
+        StringEntity requestEntity2 = new StringEntity(
+                JSON_STRING2,
+                ContentType.APPLICATION_JSON);
+        httpPost2.setEntity(requestEntity2);
+
+        CloseableHttpResponse response2 = client2.execute(httpPost2);
 
     }
 
@@ -85,18 +103,18 @@ public class OffersApiApplicationTests {
 
     @Test
     public void getSingleOffer() throws ClientProtocolException, IOException, JSONException {
-        HttpUriRequest request = new HttpGet("http://localhost:8080/offers/1");
+        HttpUriRequest request = new HttpGet("http://localhost:8080/offers/2");
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
         String json = EntityUtils.toString(httpResponse.getEntity());
         JSONObject object = new JSONObject(json);
 
         Assertions.assertThat(httpResponse.getStatusLine().getStatusCode()).isEqualTo(200);
-        Assertions.assertThat(object.get("id")).isEqualTo(1);
+        Assertions.assertThat(object.get("id")).isEqualTo(2);
     }
 
     @Test // Doesnt work on first test run - need to fix
     public void deleteSingleOffer() throws ClientProtocolException, IOException, JSONException {
-        HttpUriRequest request = new HttpDelete("http://localhost:8080/offers/2");
+        HttpUriRequest request = new HttpDelete("http://localhost:8080/offers/1");
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
         HttpUriRequest getAllRequest = new HttpGet("http://localhost:8080/offers");
@@ -106,7 +124,7 @@ public class OffersApiApplicationTests {
         JSONArray array = new JSONArray(json);
 
         Assertions.assertThat(getAllResponse.getStatusLine().getStatusCode()).isEqualTo(200);
-        JSONObject element = (JSONObject) array.get(1);
-        Assertions.assertThat(element.get("id")).isNotEqualTo(2);
+        JSONObject element = (JSONObject) array.get(0);
+        Assertions.assertThat(element.get("id")).isNotEqualTo(1);
     }
 }
