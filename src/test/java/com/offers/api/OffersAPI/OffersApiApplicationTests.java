@@ -85,7 +85,7 @@ public class OffersApiApplicationTests {
         Assertions.assertThat(response.getStatusLine().getStatusCode()).isEqualTo(201);
     }
 
-    @Test // Only works when existing entry in DB.. Need to address this - test order is temporary fix
+    @Test
     public void getSingleOffer() throws ClientProtocolException, IOException, JSONException {
         HttpUriRequest request = new HttpGet("http://localhost:8080/offers/1");
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
