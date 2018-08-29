@@ -94,7 +94,7 @@ public class OffersApiApplicationTests {
         Assertions.assertThat(object.get("id")).isEqualTo(1);
     }
 
-    @Test
+    @Test // Doesnt work on first test run - need to fix
     public void deleteSingleOffer() throws ClientProtocolException, IOException, JSONException {
         HttpUriRequest request = new HttpDelete("http://localhost:8080/offers/2");
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
