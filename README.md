@@ -6,7 +6,7 @@ This is an API built with Java and Spring that utilises JPA and a H2 database to
 
 An offer consists of a description, currency and price, and each offer has unique id that is automatically generated.
 
-To run this application, first run `OffersApiApplication` and then run the tests by running `OffersApiApplicationTests`.
+To run this application using IntelliJ, first run `OffersApiApplication` and then run the tests by running `OffersApiApplicationTests`.
 
 ## User Stories
 
