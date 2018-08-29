@@ -2,14 +2,12 @@ package com.offers.api.OffersAPI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class OfferController {
@@ -31,6 +29,13 @@ public class OfferController {
 
         return ResponseEntity.created(location).build();
 
+    }
+
+    @GetMapping("/offers/{id}")
+    public Offer retrieveStudent(@PathVariable Long id) {
+        Optional<Offer> offer = offerRepository.findById(id);
+
+        return offer.get();
     }
 
 }

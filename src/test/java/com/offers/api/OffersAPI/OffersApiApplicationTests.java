@@ -40,6 +40,15 @@ public class OffersApiApplicationTests {
     }
 
     @Test
+    public void getSingleOffer() throws ClientProtocolException, IOException {
+        HttpUriRequest request = new HttpGet("http://localhost:8080/offers/1");
+
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+        Assertions.assertThat(httpResponse.getStatusLine().getStatusCode()).isEqualTo(200);
+
+    }
+
+    @Test
     public void postOffer() throws ClientProtocolException, IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:8080/offers");
