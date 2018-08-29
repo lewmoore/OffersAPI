@@ -39,15 +39,6 @@ public class OffersApiApplicationTests {
 
     }
 
-    @Test // Only works when existing entry in DB.. Need to address this
-    public void getSingleOffer() throws ClientProtocolException, IOException {
-        HttpUriRequest request = new HttpGet("http://localhost:8080/offers/1");
-
-        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
-        Assertions.assertThat(httpResponse.getStatusLine().getStatusCode()).isEqualTo(200);
-
-    }
-
     @Test
     public void postOffer() throws ClientProtocolException, IOException {
         CloseableHttpClient client = HttpClients.createDefault();
@@ -71,5 +62,14 @@ public class OffersApiApplicationTests {
         CloseableHttpResponse response = client.execute(httpPost);
 
         Assertions.assertThat(response.getStatusLine().getStatusCode()).isEqualTo(201);
+    }
+
+    @Test // Only works when existing entry in DB.. Need to address this - test order is temporary fix
+    public void getSingleOffer() throws ClientProtocolException, IOException {
+        HttpUriRequest request = new HttpGet("http://localhost:8080/offers/1");
+
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+        Assertions.assertThat(httpResponse.getStatusLine().getStatusCode()).isEqualTo(200);
+
     }
 }
