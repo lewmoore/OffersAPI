@@ -3,7 +3,6 @@ package com.offers.api.OffersAPI;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -32,7 +31,7 @@ public class OffersApiApplicationTests {
     private OfferRepository offerRepository;
 
     @BeforeClass
-    public static void init() throws ClientProtocolException, IOException {
+    public static void init() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:8080/offers");
         httpPost.setHeader("Accept", "application/json");
@@ -49,7 +48,7 @@ public class OffersApiApplicationTests {
                 ContentType.APPLICATION_JSON);
         httpPost.setEntity(requestEntity);
 
-        CloseableHttpResponse response = client.execute(httpPost);
+        client.execute(httpPost);
 
         CloseableHttpClient client2 = HttpClients.createDefault();
         HttpPost httpPost2 = new HttpPost("http://localhost:8080/offers");
@@ -67,12 +66,12 @@ public class OffersApiApplicationTests {
                 ContentType.APPLICATION_JSON);
         httpPost2.setEntity(requestEntity2);
 
-        CloseableHttpResponse response2 = client2.execute(httpPost2);
+        client2.execute(httpPost2);
 
     }
 
     @Test
-    public void getAllOffers() throws ClientProtocolException, IOException {
+    public void getAllOffers() throws IOException {
         HttpUriRequest request = new HttpGet("http://localhost:8080/offers");
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
@@ -80,7 +79,7 @@ public class OffersApiApplicationTests {
     }
 
     @Test
-    public void postOffer() throws ClientProtocolException, IOException {
+    public void postOffer() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:8080/offers");
         httpPost.setHeader("Accept", "application/json");
@@ -102,7 +101,7 @@ public class OffersApiApplicationTests {
     }
 
     @Test
-    public void getSingleOffer() throws ClientProtocolException, IOException, JSONException {
+    public void getSingleOffer() throws IOException, JSONException {
         HttpUriRequest request = new HttpGet("http://localhost:8080/offers/2");
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
         String json = EntityUtils.toString(httpResponse.getEntity());
@@ -113,9 +112,9 @@ public class OffersApiApplicationTests {
     }
 
     @Test
-    public void deleteSingleOffer() throws ClientProtocolException, IOException, JSONException {
+    public void deleteSingleOffer() throws IOException, JSONException {
         HttpUriRequest request = new HttpDelete("http://localhost:8080/offers/1");
-        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+        HttpClientBuilder.create().build().execute(request);
 
         HttpUriRequest getAllRequest = new HttpGet("http://localhost:8080/offers");
         HttpResponse getAllResponse = HttpClientBuilder.create().build().execute(getAllRequest);
