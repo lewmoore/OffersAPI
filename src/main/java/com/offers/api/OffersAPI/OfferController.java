@@ -37,4 +37,9 @@ public class OfferController {
 
         return offer.get();
     }
+
+    @DeleteMapping("/offers/{id}")
+    public void deleteOffer(@PathVariable long id) {
+        offerRepository.deleteById(id);
+    }
 }

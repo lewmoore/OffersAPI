@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -15,6 +12,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.assertj.core.api.Assertions;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.BeforeClass;
@@ -94,5 +92,21 @@ public class OffersApiApplicationTests {
 
         Assertions.assertThat(httpResponse.getStatusLine().getStatusCode()).isEqualTo(200);
         Assertions.assertThat(object.get("id")).isEqualTo(1);
+    }
+
+    @Test
+    public void deleteSingleOffer() throws ClientProtocolException, IOException, JSONException {
+        HttpUriRequest request = new HttpDelete("http://localhost:8080/offers/2");
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+        HttpUriRequest getAllRequest = new HttpGet("http://localhost:8080/offers");
+        HttpResponse getAllResponse = HttpClientBuilder.create().build().execute(getAllRequest);
+
+        String json = EntityUtils.toString(getAllResponse.getEntity());
+        JSONArray array = new JSONArray(json);
+
+        Assertions.assertThat(getAllResponse.getStatusLine().getStatusCode()).isEqualTo(200);
+        JSONObject element = (JSONObject) array.get(1);
+        Assertions.assertThat(element.get("id")).isNotEqualTo(2);
     }
 }
