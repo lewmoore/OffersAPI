@@ -48,3 +48,5 @@ I would like to be able to delete my Offers
 ## Next Steps
 The next steps for this API would be to add the time-based attribute to an offer. This could be achieved with DateTime class or something similar.
 After that predefined time had expired, there could have been an expired attribute that sets to true, this would then make any interaction void and could delete the entry.
+
+I would also add some catches in that prevent non-complete JSON objects to be POSTed as well as some sort of success message to notify users when Offers are POSTed successfully.

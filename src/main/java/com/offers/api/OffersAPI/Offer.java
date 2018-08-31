@@ -41,12 +41,12 @@ public class Offer {
         this.description = desc;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
     public String getCurrency(){
         return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public int getPrice(){
@@ -56,6 +56,4 @@ public class Offer {
     public void setPrice(){
         this.price = price;
     }
-
-
 }

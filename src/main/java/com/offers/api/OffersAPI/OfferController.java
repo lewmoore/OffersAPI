@@ -27,6 +27,7 @@ public class OfferController {
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedOffer.getId()).toUri();
 
+
         return ResponseEntity.created(location).build();
 
     }
