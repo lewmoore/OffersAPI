@@ -8,7 +8,7 @@ An offer consists of a description, currency and price, and each offer has uniqu
 
 To run this application using IntelliJ, first run `OffersApiApplication` and then run the tests by running `OffersApiApplicationTests`.
 
-In order to access the H2 Database, run the application and visit `http://localhost:8080/h2-console`, then, connect to JDBC URL `jdbc:h2:mem:testdb` with the username `sa
+In order to access the H2 Database, run the application and visit `http://localhost:8080/h2-console`, then, connect to JDBC URL `jdbc:h2:mem:testdb` with the username `sa`
 
 ## Specification
 You are required to create a simple RESTful software service that will allow a merchant to create a new simple offer. Offers, once created, may be queried. After the period of time defined on the offer it should expire and further requests to query the offer should reflect that somehow. Before an offer has expired users may cancel it.
